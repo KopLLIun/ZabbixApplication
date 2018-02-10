@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Devices</title>
+</head>
+<body>
+
+<div>
+    <table>
+
+        <caption>DEVICES</caption>
+
+        <thead>
+        <tr>
+            <th>device</th>
+            <th>value</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="device:${devices}">
+            <td th:utext="${device.getString('host')}"></td>
+            <td th:utext="${device.getString('hostid')}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+</body>
+</html>
