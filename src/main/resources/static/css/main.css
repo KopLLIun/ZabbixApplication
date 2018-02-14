@@ -1,0 +1,28 @@
+h1{
+    color: #4a2bff;
+}
+
+h2{
+    color: #ff171c;
+}
+
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+.row.content {
+    height: 450px
+}
+
+th{
+    text-align: center;
+}
+td{
+    width: 60px;
+    height:60px;
+    border: solid 1px silver;
+    text-align:center;
+}
+#myNavbar{
+    font-size: 15pt;
+}

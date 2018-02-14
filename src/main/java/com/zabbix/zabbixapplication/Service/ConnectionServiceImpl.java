@@ -18,25 +18,6 @@ public class ConnectionServiceImpl implements ConnectionService {
         System.err.println("login:" + login);
 
         return zabbixApi;
-        //return zabbixApi.apiVersion();
-
-/*
-
-        String host = "127.0.0.1";
-
-        //GSONObject filter = new JSONObject();
-        JSONObject filter = new JSONObject();
-        //Gson filter = new GsonBuilder().setPrettyPrinting().create();
-        //JsonObject json = new JsonObject();
-        Request getRequest = RequestBuilder.newBuilder()
-                .method("host.get").paramEntry("filter", filter)
-                .build();
-        JSONObject getResponse = zabbixApi.call(getRequest);
-        System.err.println(getResponse);
-        String hostid = getResponse.getJSONArray("result")
-                .getJSONObject(0).getString("hostid");
-        return hostid;
-        //System.err.println(hostid);*/
     }
 
     public String login(String user, String password) {

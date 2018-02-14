@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+    <title>History</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<table align="center">
+    <caption>Последние данные</caption>
+    <thead>
+    <tr>
+        <th>Отметка времени</th>
+        <th>Значения</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="log:${history}">
+        <td th:utext="${log.getString('clock')}"></td>
+        <td th:utext="${log.getString('value')}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

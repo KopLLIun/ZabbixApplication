@@ -42,10 +42,10 @@ public class RequestServiceImpl implements RequestService {
                 .method(methodName)
                 .build();
         request.setParams(params);
-        //------------ call request -----------------------------------------
+        //------------ call request ----------------------------------------
         JSONObject response = connectionService.initConnection("http://192.168.1.50/zabbix/api_jsonrpc.php").
                 call(request);
-        //------------ displays response at the window ----------------------------
+        //------------ displays response at the window ---------------------
         System.err.println(response);
         List<JSONObject> list = new ArrayList<>();
         for (Object jsonObject : response.getJSONArray("result")) {

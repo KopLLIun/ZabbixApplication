@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>Main Page</title>
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" th:src="@{js/charts_loader.js}"></script>
+    <!--    <script type="text/javascript" src="../static/js/jquery.js"></script>
+        <script type="text/javascript" src="../static/js/script.js"></script>-->
+    <div th:replace="fragments/header :: header-css"></div>
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
 <h1>Hello</h1>
+<div id="piechart_3d" style="width: 400px; height: 400px;"></div>
+<div>
+    <!--    <table>
+            <tr th:each="proc:${process}">
+               <td th:utext="${proc.getString('itemid')}"></td>
+            </tr>
+        </table>-->
+    <form action="/devices" method="get">
+        <select id="hosts">
+            <option value="0">- Выберите узел -</option>
+            <th:block th:each="host:${hosts}">
+                <option th:value="${host.getString('hostid')}" th:utext="${host.getString('host')}"></option>
+            </th:block>
+            <!--            <option value="10084">Zabbix Server</option>
+                        <option value="10025">Linux Server</option>
+                        <option value="10026">Windows Server</option>;-->
+        </select>
+
+
+        <select id="items" disabled="disabled">
+            <option value="0">- Выберите узел -</option>
+            <!--            <th:block th:each="proc:${process}">
+                            <option th:value="${proc.getString('itemid')}" th:utext="${proc.getString('name')}"></option>
+                        </th:block>;-->
+        </select>
+    </form>
+    <form action="/history" method="get">
+        <div>
+            <table id="history">
+            </table>
+        </div>
+    </form>
+    <div id="result"></div>
+</div>
 </body>
 </html>
