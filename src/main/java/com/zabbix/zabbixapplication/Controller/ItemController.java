@@ -1,44 +1,26 @@
 package com.zabbix.zabbixapplication.Controller;
 
-import com.zabbix.zabbixapplication.Service.RequestService;
+import com.zabbix.zabbixapplication.Service.ItemService;
+import com.zabbix.zabbixapplication.Service.TriggerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.HashMap;
-import java.util.Map;
-
-@RestController
+@Controller
 public class ItemController {
 
     @Autowired
-    private RequestService requestService;
+    private ItemService itemService;
 
-    @GetMapping(value = "/devices")
-    public String show(@RequestParam("host_id") Integer id) {
-        //Map<String, Object> params = new HashMap<>();
-        //params.put("output", new String[] {"hostid", "host"});
-        //params.put("filter", new JSONObject().put("host", new String[] {"Zabbix server"}));
-        //List<JSONObject> list = requestService.doRequest("item.get", "hostids", id);
-        //model.addAttribute("process", list);
-        //System.out.println(list.toString());
-        //requestService.doRequest("host.get", params);
-        Map<String, Object> params = new HashMap<>();
-        params.put("output", "extend");
-        //params.put("sortfield", "name");
-        params.put("sortorder", "DESC");
-        params.put("hostids", id);
-        return requestService.doRequest("item.get", params).toString();
+    @Autowired
+    private TriggerService triggerService;
+
+    @GetMapping(value = "items/triggers")
+    public String getTriggersByItemId(Model model, @RequestParam ("itemid") Integer id) {
+        model.addAttribute("triggers", triggerService.getTriggersByItemId(id));
+        return "triggercontent/triggers";
     }
 
-    @GetMapping(value = "/history")
-    public String showHistory(@RequestParam("item_id") Integer id) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("output", "extend");
-        params.put("history", 0);
-        params.put("itemids", id);
-        params.put("sortfield", "clock");
-        params.put("sortorder", "DESC");
-        params.put("limit", 10);
-        return requestService.doRequest("history.get", params).toString();
-    }
 }

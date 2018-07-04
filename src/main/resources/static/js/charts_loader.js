@@ -17,7 +17,7 @@ function drawChart() {
         ['Eat',      2],
         ['Commute',  2],
         ['Watch TV', 2],
-        ['Sleep',    7],
+        ['Sleep',    7]
     ]);
 
     var options = {

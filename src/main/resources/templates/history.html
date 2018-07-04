@@ -2,29 +2,36 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
-    <script type="text/javascript" th:src="@{/js/script.js}"></script>
-    <title>History</title>
+    <title>История</title>
+    <link rel="stylesheet" href="/css/table-style.css" />
     <div th:replace="fragments/header :: header-css"></div>
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<table align="center">
-    <caption>Последние данные</caption>
-    <thead>
-    <tr>
-        <th>Отметка времени</th>
-        <th>Значения</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="log:${history}">
-        <td th:utext="${log.getString('clock')}"></td>
-        <td th:utext="${log.getString('value')}"></td>
-    </tr>
-    </tbody>
-</table>
+<form id="latest" >
+    <input id="itemids" name="itemid[*]" th:value="${graph}" type="hidden"/>
+    <select id="action">
+        <option value="showGraph">График</option>
+        <option value="showValues">Последние 100</option>
+    </select>
+</form>
+
+<div id="historyGraph">
+    <img th:if="${graph!=null}" th:src="@{'http://192.168.1.50/zabbix/chart.php?itemids=' + ${graph}}"/>
+</div>
+
+<div id="tablewrapper">
+    <table id="values" class="tinytable">
+        <tbody th:if="${values!=null}">
+            <tr th:each="value:${values}">
+                <td th:text="${value.getString('clock')}"></td>
+                <td th:text="${value.getString('value')}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+
+    <title>Настройка узлов сети</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<style type="text/css">
+    .noBorder {
+        border: none !important;
+    }
+</style>
+<div id="tabs">
+    <div id="hostTab">
+        <form action="#" th:action="@{/hosts/create/submit}" method="post">
+            <ul id="hostlist">
+                <div th:object="${host}">
+                <li>
+                    <div class="table-forms-td-left">
+                        <label for="host">Имя узла сети</label>
+                    </div>
+                    <div class="table-forms-td-right">
+                        <input type="text" id="host" name="host" value="" maxlength="128" style="width: 453px;"
+                               autofocus="autofocus" th:field="*{host}"/>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="table-forms-td-left">
+                        <label for="visiblename">Видимое имя</label>
+                    </div>
+                    <div class="table-forms-td-right">
+                        <input type="text" id="visiblename" name="visiblename" value="" maxlength="128" style="width: 453px;"
+                        th:field="*{name}"/>
+                    </div>
+                </li>
+                </div>
+
+                <li>
+                    <div class="table-forms-td-left">
+                        <label for="newgroup">Новая группа</label>
+                    </div>
+                    <div class="table-forms-td-right">
+                    <span class="form-new-group">
+                        <input type="text" id="newgroup" name="newgroup" value="" maxlength="255" style="width: 453px;"/>
+                    </span>
+                    </div>
+                </li>
+
+                <div th:object="${interface}" data-type="agent" style="width: 750px;">
+                    <table id="agentInterfaces">
+                        <thead>
+                        <tr>
+                            <th>IP адрес</th>
+                            <th>DNS имя</th>
+                            <th>Подключаться через</th>
+                            <th>Порт</th>
+                            <th>Тип</th>
+                            <th>Main</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr id="hostInterface">
+                            <td class="interface-ip">
+                                <input type="hidden" name="interfaces[1][isNew]" value="true"/>
+                                <input type="hidden" name="interfaces[1][interfaceid]" value="1"/>
+                                <input type="hidden" id="interface_type_1" name="interfaces[1][type]" value="1"/>
+                                <input name="interfaces[ip]" type="text" style="width: 225px" maxlength="64" th:field="*{ip}"/>
+                            </td>
+                            <td class="interface-dns">
+                                <input name="interfaces[1][dns]" type="text" style="width: 175px" maxlength="64" th:field="*{dns}"/>
+                            </td>
+                            <td>
+                                <ul id="interfaces_1_useip" class="radio-segmented">
+                                    <li>
+                                        <input id="interfaces_1_useip_1" name="interfaces[1][useip]" th:field="*{useip}"/>
+                                        <label for="interfaces_1_useip_1">IP</label>
+                                    </li>
+<!--                                    <li>
+                                        <input type="radio" id="interfaces_1_useip_0" value="0" name="interfaces[1][useip]"/>
+                                        <label for="interfaces_1_useip_0">DNS</label>
+                                    </li>-->
+                                </ul>
+                            </td>
+                            <td class="interface-port">
+                                <input name="interfaces[1][port]" type="text" style="width: 100px" maxlength="64" th:field="*{port}"/>
+                            </td>
+                            <td>
+                                <input th:field="*{type}"/>
+                            </td>
+                            <td>
+                                <input th:field="*{main}"/>
+                            </td>
+                            <td class="nowrap interface-control">
+                                <button class="btn-link remove" type="button" id="removeInterface_1" data-interfaceid="1">Удалить</button>
+                            </td>
+                        </tr>
+                        <tr id="agentInterfacesFooter">
+                            <td colspan="7">
+                                <button type="button" id="addAgentInterface" name="addAgentInterface" class="btn-link">Добавить</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <li>
+                    <div class="table-forms-td-left">
+                        <label for="description">Описание</label>
+                    </div>
+                    <div th:object="${host}" class="table-forms-td-right">
+                        <textarea id="description" name="description" rows="7" style="width: 453px;" th:field="*{description}"></textarea>
+                    </div>
+                </li>
+                <button type="submit" class="btn btn-success" id="add">Добавить</button>
+            </ul>
+        </form>
+    </div>
+</div>
+</body>
+</html>

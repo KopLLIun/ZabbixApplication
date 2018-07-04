@@ -16,6 +16,42 @@ public class RequestServiceImpl implements RequestService {
     private ConnectionServiceImpl connectionService;
 
     @Override
+    public JSONObject doRequestForJSON(String methodName, String paramKey, Object paramValue) {
+        Request request = RequestBuilder.newBuilder()
+                .method(methodName)
+                .paramEntry(paramKey, paramValue)
+                .build();
+        JSONObject response = connectionService.initConnection("http://192.168.1.50/zabbix/api_jsonrpc.php").
+                call(request);
+        System.err.println(response);
+        return response.getJSONObject("result");
+    }
+
+    @Override
+    public JSONObject doRequestForJSON(String methodName, Map<String, Object> params) {
+        Request request = RequestBuilder.newBuilder()
+                .method(methodName)
+                .build();
+        request.setParams(params);
+        JSONObject response = connectionService.initConnection("http://192.168.1.50/zabbix/api_jsonrpc.php").
+                call(request);
+        System.err.println(response);
+        return response.getJSONObject("result");
+    }
+
+    @Override
+    public JSONObject doRequestForJSON(String methodName, Object paramValue) {
+        Request request = RequestBuilder.newBuilder()
+                .method(methodName)
+                .paramEntry("", paramValue)
+                .build();
+        JSONObject response = connectionService.initConnection("http://192.168.1.50/zabbix/api_jsonrpc.php").
+                call(request);
+        System.err.println(response);
+        return response.getJSONObject("result");
+    }
+
+    @Override
     public List<JSONObject> doRequest(String methodName, String paramKey, Object paramValue) {
 
         Request request = RequestBuilder.newBuilder()

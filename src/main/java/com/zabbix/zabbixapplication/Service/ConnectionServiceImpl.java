@@ -7,6 +7,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class ConnectionServiceImpl implements ConnectionService {
 
+    private String userName;
+
+    private String password;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public ConnectionServiceImpl() {}
+
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public ZabbixApi initConnection(String url) {
         //url = "http://192.168.56.101/zabbix";

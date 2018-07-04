@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="/css/table-style.css" />
+    <!--    <link rel="stylesheet" type="text/css" href="/css/dark-theme.css" />-->
+    <title>Настройка групп узлов сети</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+</body>
+<div id="tablewrapper" class="table-forms-container">
+    <div id="hostgroupTab">
+        <ul class="table-forms" id="hostgroupFormList">
+            <div class="table-forms-td-left">
+                <label>Узлы сети</label>
+            </div>
+            <div class="table-forms-td-right">
+                <table class="tinytable" name="hosts_tweenbox" id="id" cellspacing="0" cellpadding="0">
+                    <tbody>
+                    <tr>
+                        <td>Узлы сети в</td>
+                        <td>Другие узлы сети | Группа&nbsp;
+                            <select id="twb_groupid" name="twb_groupid" onchange="submit()" autocomplete="off">
+                                <option value="0">Все</option>
+                                <option value="5" selected="selected">Discovered hosts</option>
+                                <option value="1">Templates</option>
+                                <option value="12">Templates/Applications</option>
+                                <option value="13">Templates/Databases</option>
+                                <option value="8">Templates/Modules</option>
+                                <option value="9">Templates/Network Devices</option>
+                                <option value="10">Templates/Operating Systems</option>
+                                <option value="11">Templates/Servers Hardware</option>
+                                <option value="14">Templates/Virtualization</option>
+                                <option value="15">Windows 10</option>
+                                <option value="4">Zabbix servers</option>
+                            </select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ul>
+        <ul class="table-forms">
+            <div class="table-forms-td-left"></div>
+            <div class="table-forms-td-right tfoot-buttons">
+                <form action="#" th:action="@{/hostgroups/update/submit}" th:object="${update}" method="post">
+                    <div class="table-forms-td-left">
+                        <label for="name">Имя группы</label>
+                    </div>
+                    <div class="table-forms-td-right">
+                        <input type="text" id="name" name="name" value="" maxlength="255" style="width: 453px;" autofocus="autofocus" th:field="*{name}"/>
+                    </div>
+                    <input type="hidden" th:field="*{groupId}"/>
+                    <button type="submit" class="btn btn-success" id="add">Изменить</button>
+                </form>
+                <form action="#" th:action="@{'/hostgroups/delete?groupid='+ ${update.getGroupId()}}" method="post">
+                    <button type="submit" class="btn btn-success" id="delete">Удалить</button>
+                </form>
+                <button type="button" id="cancel" name="cancel" onclick="javascript: return location.replace('/hostgroups');" class="btn-alt">Отмена</button>
+            </div>
+        </ul>
+    </div>
+</div>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+    <link rel="stylesheet" href="css/table-style.css" />
+    <title>Последние Данные</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<script>
+    function deleteContentOnPage() {
+        $('.data').remove();
+    }
+</script>
+<!--<form action="/history" method="get">
+    <div>
+        <table id="history">
+        </table>
+    </div>
+</form>-->
+<!--<form action="/last-data/graph">
+    <div onload="deleteContentOnPage()">
+        <th:block th:each="g:${graph}">
+            <img th:src="@{'http://192.168.1.50/zabbix/chart.php?itemids=' + ${g.getString('itemid')}}"/>
+        </th:block>
+    </div>
+</form>-->
+
+<form class="data">
+    <select id="host_groups_data">
+        <span>Группы узлов сети</span>
+        <option value="0">- Все -</option>
+        <th:block th:each="hostgroup:${hostgroups}">
+            <option th:value="${hostgroup.getString('groupid')}" th:text="${hostgroup.getString('name')}"></option>
+        </th:block>
+    </select>
+
+    <select id="hosts_data" disabled="disabled">
+        <span>Группы узлов сети</span>
+        <option value="0">- Выберите группу -</option>
+    </select>
+</form>
+
+<div id="tablewrapper" class="data">
+    <table id="last_data" cellpadding="0" cellspacing="0" border="0" class="tinytable">
+        <caption><h1>Последние данные</h1></caption>
+        <thead>
+        <tr>
+            <th><h3>Имя</h3></th>
+            <th><h3>Интервал</h3></th>
+            <th><h3>История</h3></th>
+            <th><h3>Динамика</h3></th>
+            <th><h3>Последняя проверка</h3></th>
+            <th><h3>Последнее значение</h3></th>
+            <!--        <th>Изменение</th>-->
+            <th><h3>Инфо</h3></th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+
+</body>
+</html>

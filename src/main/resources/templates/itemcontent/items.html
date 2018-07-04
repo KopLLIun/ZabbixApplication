@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="/css/table-style.css" />
+    <title>Настройка узлов сети</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body th:inline="text">
+<div th:replace="fragments/header :: header"></div>
+
+<div class="header-title table">
+    <div class="cell">
+        <h1>Элементы данных</h1>
+    </div>
+</div>
+<div id="tablewrapper">
+    <div th:replace="fragments/tableheader :: table-header"></div>
+    <button type="submit" id="form" onclick="location.href='hosts/create'">Создать элемент данных</button>
+    <table cellpadding="0" cellspacing="0" border="0" id="items" class="tinytable" th:if="${items!=null}">
+        <thead>
+        <tr>
+            <th><h3>Имя</h3></th>
+            <th class="nosort"><h3>Триггеры</h3></th>
+            <th class="nosort"><h3>Ключ</h3></th>
+            <th class="nosort"><h3>Интервал</h3></th>
+            <th class="nosort"><h3>История</h3></th>
+            <th class="nosort"><h3>Динамика изменений</h3></th>
+            <th class="nosort"><h3>Тип</h3></th>
+            <th class="nosort"><h3>Группы элементов данных</h3></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item:${items}">
+            <td th:utext="${item.getString('name')}"></td>
+            <td><a th:href="@{'/items/triggers?itemid='+${item.getString('itemid')}}">Триггеры</a></td>
+            <td th:utext="${item.getString('key_')}"></td>
+            <td th:utext="${item.getString('delay')}"></td>
+            <td th:utext="${item.getString('history')}"></td>
+            <td th:utext="${item.getString('trends')}"></td>
+            <td th:utext="${item.getString('type')}"></td>
+            <td th:utext="${item.getString('status')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/tablefooter :: table-footer"></div>
+
+<script th:inline="javascript" type="text/javascript">
+    function defineType(type) {
+        var ss =/*[[${items.get(0).getString('key_)]]*/ 'value';
+        alert(ss);
+        if (type === 0) {
+            return 'Zabbix Agent'
+        } else if (type === 1) {
+            return 'SNMPv1 агент'
+        } else if (type === 2) {
+            return 'Простая проверка'
+        } else {
+            return 'SNMP трап'
+        }
+    }
+</script>
+<script type="text/javascript" src="/js/tablescript.js"></script>
+<script type="text/javascript">
+    var sorter = new TINY.table.sorter('sorter','items',{
+        headclass:'head',
+        ascclass:'asc',
+        descclass:'desc',
+        evenclass:'evenrow',
+        oddclass:'oddrow',
+        evenselclass:'evenselected',
+        oddselclass:'oddselected',
+        paginate:true,
+        size:10,
+        colddid:'columns',
+        currentid:'currentpage',
+        totalid:'totalpages',
+        startingrecid:'startrecord',
+        endingrecid:'endrecord',
+        totalrecid:'totalrecords',
+        hoverid:'selectedrow',
+        pageddid:'pagedropdown',
+        navid:'tablenav',
+        sortcolumn:1,
+        sortdir:1,
+        init:true
+    });
+</script>
+</body>
+</html>

@@ -27,11 +27,13 @@
             <td th:utext="${proc.getString('hostid')}"></td>
             <td th:utext="${proc.getString('name')}"></td>
         </tr>-->
-<!--        <tr th:each="device:${devices}">
-            <td th:utext="${device.getString('itemid')}"></td>
+        <tr th:each="device:${devices}">
+            <td th:utext="${device.getString('applicationid')}"></td>
+<!--
             <td th:utext="${device.getString('hostid')}"></td>
+-->
             <td th:utext="${device.getString('name')}"></td>
-        </tr>-->
+        </tr>
         </tbody>
     </table>
 </div>

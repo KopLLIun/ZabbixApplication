@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="/css/table-style.css" />
+    <title>Настройка узлов сети</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body th:inline="text">
+<div th:replace="fragments/header :: header"></div>
+
+<div class="header-title table">
+    <div class="cell">
+        <h1>Настройка элементов данных</h1>
+    </div>
+</div>
+<div id="tablewrapper">
+    <div th:replace="fragments/tableheader :: table-header"></div>
+    <button type="submit" id="form" onclick="location.href='applications/create'">Создать группу элементов данных</button>
+    <table cellpadding="0" cellspacing="0" border="0" id="applications" class="tinytable" th:if="${applications!=null}">
+        <thead>
+        <tr>
+            <th><h3>Группа элеменов данных</h3></th>
+            <th class="nosort"><h3>Элементы данных</h3></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- th:utext="${template.getString('host')}+':' -->
+        <tr th:each="app:${applications}">
+            <td>
+                <a th:href="@{'/applications/edit?applicationid='+${app.getString('applicationid')}}">[[${app.getString('name')}]]</a>
+            </td>
+            <td><a th:href="@{'/applications/items?applicationid='+${app.getString('applicationid')}}">Элементы данных</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/tablefooter :: table-footer"></div>
+
+<script type="text/javascript" src="/js/tablescript.js"></script>
+<script type="text/javascript">
+    var sorter = new TINY.table.sorter('sorter','applications',{
+        headclass:'head',
+        ascclass:'asc',
+        descclass:'desc',
+        evenclass:'evenrow',
+        oddclass:'oddrow',
+        evenselclass:'evenselected',
+        oddselclass:'oddselected',
+        paginate:true,
+        size:10,
+        colddid:'columns',
+        currentid:'currentpage',
+        totalid:'totalpages',
+        startingrecid:'startrecord',
+        endingrecid:'endrecord',
+        totalrecid:'totalrecords',
+        hoverid:'selectedrow',
+        pageddid:'pagedropdown',
+        navid:'tablenav',
+        sortcolumn:1,
+        sortdir:1,
+        init:true
+    });
+</script>
+</body>
+</html>

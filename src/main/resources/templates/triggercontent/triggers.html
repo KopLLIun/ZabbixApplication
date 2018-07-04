@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Натсройка триггреов</title>
+    <link rel="stylesheet" href="/css/table-style.css"/>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="header-title table">
+    <div class="cell"><h1>Триггеры</h1>
+    </div>
+</div>
+<div id="tablewrapper">
+    <div th:replace="fragments/tableheader :: table-header"></div>
+    <button type="submit" id="form" onclick="location.href='triggers/create'">Создать триггер</button>
+    <table cellpadding="0" cellspacing="0" border="0" id="triggers" class="tinytable" th:if="${triggers!=null}">
+        <thead>
+        <tr>
+            <th><h3>Важность</h3></th>
+            <th class="nosort"><h3>Имя</h3></th>
+            <th class="nosort"><h3>Выражение</h3></th>
+            <th class="nosort"><h3>Состояние</h3></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="trigger:${triggers}">
+            <td><a href="#" th:text="${trigger.getString('priority')}"></a></td>
+            <td><a th:href="@{'triggers/edit?triggerid='+${trigger.getString('triggerid')}}" th:text="${trigger.getString('description')}"></a></td>
+            <td><a href="#" th:text="${trigger.getString('expression')}"></a></td>
+            <td><a href="#" th:text="${trigger.getString('status')}"></a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<div th:replace="fragments/tablefooter :: table-footer"></div>
+<script type="text/javascript" th:src="@{/js/tablescript.js}"></script>
+<script type="text/javascript">
+    var sorter = new TINY.table.sorter('sorter','triggers',{
+        headclass:'head',
+        ascclass:'asc',
+        descclass:'desc',
+        evenclass:'evenrow',
+        oddclass:'oddrow',
+        evenselclass:'evenselected',
+        oddselclass:'oddselected',
+        paginate:true,
+        size:10,
+        colddid:'columns',
+        currentid:'currentpage',
+        totalid:'totalpages',
+        startingrecid:'startrecord',
+        endingrecid:'endrecord',
+        totalrecid:'totalrecords',
+        hoverid:'selectedrow',
+        pageddid:'pagedropdown',
+        navid:'tablenav',
+        sortcolumn:1,
+        sortdir:1,
+        init:true
+    });
+</script>
+</html>

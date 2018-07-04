@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="/css/table-style.css" />
+    <title>Настройка узлов сети</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="header-title table">
+    <div class="cell"><h1>Узлы сети</h1>
+    </div>
+</div>
+<div id="tablewrapper">
+    <div th:replace="fragments/tableheader :: table-header"></div>
+    <button type="submit" id="form" onclick="location.href='hosts/create'">Создать узел сети</button>
+    <table cellpadding="0" cellspacing="0" border="0" id="hosts" class="tinytable" th:if="${hosts!=null}">
+        <thead>
+        <tr>
+            <th><h3>Имя</h3></th>
+            <th class="nosort"><h3>Группы элементов данных</h3></th>
+            <th class="nosort"><h3>Элементы данных</h3></th>
+            <th class="nosort"><h3>Графики</h3></th>
+            <th class="nosort"><h3>Интерфейс</h3></th>
+            <th class="nosort"><h3>Шаблоны</h3></th>
+            <th class="nosort"><h3>Состояние</h3></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="host:${hosts}">
+            <td><a th:href="@{'hosts/edit?hostid='+${host.getString('hostid')}}" th:text="${host.getString('host')}"></a></td>
+            <!--         <td><a th:href="@{'hosts/update?groupid='+${hostgroup.getString('groupid')}}" th:text="${host.getString('name')}"></a></td>
+                     <td><a th:href="@{'/hosts?groupid='+${hostgroup.getString('groupid')}}">Узлы сети</a></td>
+                     <td><a th:href="@{'/templates?groupid='+${hostgroup.getString('groupid')}}">Шаблоны</a></td>-->
+            <td><a th:href="@{'hosts/applications?hostid='+${host.getString('hostid')}}">Группы элементов данных</a></td>
+            <td><a th:href="@{'hosts/items?hostid='+${host.getString('hostid')}}">Элементы данных</a></td>
+            <td><a th:href="a">Графики</a></td>
+            <td>Интерфейс</td>
+            <td>
+                <th:block>
+                    <a th:href="a">Шаблоны</a>
+                </th:block>
+            </td>
+            <td><a th:href="@{'/hosts/status?hostid='+${host.getString('hostid')}}">Состояние</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/tablefooter :: table-footer"></div>
+
+<script type="text/javascript" src="/js/tablescript.js"></script>
+<script type="text/javascript">
+    var sorter = new TINY.table.sorter('sorter','hosts',{
+        headclass:'head',
+        ascclass:'asc',
+        descclass:'desc',
+        evenclass:'evenrow',
+        oddclass:'oddrow',
+        evenselclass:'evenselected',
+        oddselclass:'oddselected',
+        paginate:true,
+        size:10,
+        colddid:'columns',
+        currentid:'currentpage',
+        totalid:'totalpages',
+        startingrecid:'startrecord',
+        endingrecid:'endrecord',
+        totalrecid:'totalrecords',
+        hoverid:'selectedrow',
+        pageddid:'pagedropdown',
+        navid:'tablenav',
+        sortcolumn:1,
+        sortdir:1,
+        init:true
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Графики</title>
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div>
+    <div>
+        <form>
+            <span>Группа</span>
+            <select name="Группа" id="host_groups_charts">
+                <option value="0">Все</option>
+                <th:block th:each="hostgroup:${hostgroups}">
+                    <option th:value="${hostgroup.getString('groupid')}" th:utext="${hostgroup.getString('name')}"></option>
+                </th:block>
+            </select>
+            <span>Узел сети</span>
+            <select id="hosts_charts" disabled="disabled">
+                <option value="0">- Выберите группу -</option>
+            </select>
+            <span>График</span>
+            <select id="charts" disabled="disabled">
+                <option value="0">- Выберите узел -</option>
+            </select>
+        </form>
+    </div>
+</div>
+
+<div align="center">
+    <img id="graph" alt="Данные не найдены"/>
+</div>
+</body>
+</html>

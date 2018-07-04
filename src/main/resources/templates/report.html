@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Состояние Zabbix</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="article"><div class="header-title table">
+    <div class="cell">
+        <h1>Состояние Zabbix</h1>
+    </div>
+</div>
+    <table class="list-table" id="t5a9809714be35">
+        <thead>
+        <tr>
+            <th>Параметр</th>
+            <th>Значение</th>
+            <th>Детали</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Zabbix сервер запущен</td>
+            <td><span class="green">Да</span></td>
+            <td>localhost:10051</td>
+        </tr>
+        <tr>
+            <td>Количество узлов сети (активированных/деактивированных/шаблонов)</td>
+            <td>79</td>
+            <td><span class="green">3</span>
+                <span class="red">1</span>
+                <span class="grey">75</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span title="Подсчитываются только элементы данных у активированных узлов сети">Количество элементов данных (активированных/деактивированных/неподдерживаемых)</span>
+            </td>
+            <td>183</td>
+            <td>
+                <span class="green">158</span>
+                <span class="red">19</span>
+                <span class="grey">6</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span title="Подсчитываются только триггеры у активированных узлов сети и которые зависят от активных элементов данных">Количество триггеров (активированных/деактивированных [проблема/ок])</span></td><td>72</td><td>63 / 9 [<span class="red">4</span> / <span class="green">59</span>]</td></tr><tr><td>Количество пользователей (в сети)</td><td>2</td><td><span class="green">1</span></td></tr><tr><td>Требуемое быстродействие сервера, новые значения в секунду</td><td>2.41</td><td></td></tr></tbody></table></div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="/css/table-style.css" />
+    <title>Настройка групп узлов сети</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="header-title table">
+    <div class="cell">
+        <h1>Группы узлов сети</h1>
+    </div>
+</div>
+<div id="tablewrapper">
+    <div th:replace="fragments/tableheader :: table-header"></div>
+    <button type="submit" id="form" onclick="location.href='hostgroups/create'">Создать группу узлов</button>
+    <table cellpadding="0" cellspacing="0" border="0" id="hostgroups" class="tinytable" th:if="${hostgroups!=null}">
+        <thead>
+        <tr>
+            <th><h3>Имя</h3></th>
+            <th class="nosort"><h3>Узлы сети</h3></th>
+            <th><h3>Шаблоны</h3></th>
+            <th><h3>Члены группы</h3></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="hostgroup:${hostgroups}">
+            <td><a th:href="@{'hostgroups/update?groupid='+${hostgroup.getString('groupid')}}" th:text="${hostgroup.getString('name')}"></a></td>
+            <td><a th:href="@{'/hostgroups/hosts?groupid='+${hostgroup.getString('groupid')}}">Узлы сети</a></td>
+            <td><a th:href="@{'/hostgroups/templates?groupid='+${hostgroup.getString('groupid')}}">Шаблоны</a></td>
+            <td>
+                <!--                <th:block th:each="host:${hosts}">
+                                    <a th:href="@{'/hosts?hostid='+${host.getString('hostid')}}"
+                                       th:text= "${host.getString('host')}"></a>
+                                </th:block>-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/tablefooter :: table-footer"></div>
+
+<script type="text/javascript" src="/js/tablescript.js"></script>
+<script type="text/javascript">
+    var sorter = new TINY.table.sorter('sorter','hostgroups',{
+        headclass:'head',
+        ascclass:'asc',
+        descclass:'desc',
+        evenclass:'evenrow',
+        oddclass:'oddrow',
+        evenselclass:'evenselected',
+        oddselclass:'oddselected',
+        paginate:true,
+        size:10,
+        colddid:'columns',
+        currentid:'currentpage',
+        totalid:'totalpages',
+        startingrecid:'startrecord',
+        endingrecid:'endrecord',
+        totalrecid:'totalrecords',
+        hoverid:'selectedrow',
+        pageddid:'pagedropdown',
+        navid:'tablenav',
+        sortcolumn:1,
+        sortdir:1,
+        init:true
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Настройка шаблонов</title>
+    <link rel="stylesheet" href="/css/table-style.css"/>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body th:inline="text">
+<div th:replace="fragments/header :: header"></div>
+<div class="header-title table">
+    <div class="cell"><h1>Шаблоны</h1>
+    </div>
+</div>
+<div id="tablewrapper">
+    <div th:replace="fragments/tableheader :: table-header"></div>
+    <table cellpadding="0" cellspacing="0" border="0" id="templates" class="tinytable">
+        <thead>
+        <tr>
+            <th><h3>Имя</h3></th>
+            <th class="nosort"><h3>Группы элементов данных</h3></th>
+            <th class="nosort"><h3>Элементы данных</h3></th>
+            <th class="nosort"><h3>Триггеры</h3></th>
+            <th class="nosort"><h3>Графики</h3></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="template:${templates}">
+            <td>[[${template.getString('host')}]]</td>
+            <td><a th:href="@{'/templates/applications?templateid='+${template.getString('templateid')}}">
+                Группы элементов данных</a></td>
+            <td><a th:href="@{'/templates/items?templateid='+${template.getString('templateid')}}">
+                Элементы данных
+            </a></td>
+            <td><a th:href="@{'/templates/triggers?templateid='+${template.getString('templateid')}}">Триггеры</a></td>
+            <td><a th:href="@{'/templates/graphs?templateid='+${template.getString('templateid')}}">Графики</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:replace="fragments/tablefooter :: table-footer"></div>
+<script type="text/javascript" src="/js/tablescript.js"></script>
+<script type="text/javascript">
+    var sorter = new TINY.table.sorter('sorter','templates',{
+        headclass:'head',
+        ascclass:'asc',
+        descclass:'desc',
+        evenclass:'evenrow',
+        oddclass:'oddrow',
+        evenselclass:'evenselected',
+        oddselclass:'oddselected',
+        paginate:true,
+        size:10,
+        colddid:'columns',
+        currentid:'currentpage',
+        totalid:'totalpages',
+        startingrecid:'startrecord',
+        endingrecid:'endrecord',
+        totalrecid:'totalrecords',
+        hoverid:'selectedrow',
+        pageddid:'pagedropdown',
+        navid:'tablenav',
+        sortcolumn:1,
+        sortdir:1,
+        init:true
+    });
+</script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <meta charset="utf-8" />
@@ -35,15 +35,15 @@
         <div class="signin-logo">
 
         </div>
-        <form method="post" action="index.php" accept-charset="utf-8">
+        <form method="post" action="#" th:action="@{login/submit}" th:object="${user}" accept-charset="utf-8">
             <ul>
                 <li>
                     <label for="name">Username</label>
-                    <input type="text" id="name" name="name" value="" maxlength="255" autofocus="autofocus"/>
+                    <input type="text" id="name" name="name" th:field="*{userName}" maxlength="255" autofocus="autofocus"/>
                 </li>
                 <li>
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" value="" maxlength="255"/>
+                    <input type="password" id="password" name="password" th:field="*{password}" maxlength="255"/>
                 </li>
                 <li>
                     <input type="checkbox" id="autologin" name="autologin" value="1" class="checkbox-radio" checked="checked"/>
